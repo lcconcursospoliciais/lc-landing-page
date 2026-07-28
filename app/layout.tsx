@@ -4,6 +4,8 @@ import "./globals.css";
 import "./image-overrides.css";
 import "./improvements.css";
 import "./real-platform.css";
+import "./scroll-motion.css";
+import ScrollMotion from "./ScrollMotion";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-title", display: "swap" });
@@ -20,5 +22,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><body className={`${inter.variable} ${sora.variable}`}>{children}</body></html>;
+  return <html lang="pt-BR"><body className={`${inter.variable} ${sora.variable}`}><ScrollMotion />{children}</body></html>;
 }
