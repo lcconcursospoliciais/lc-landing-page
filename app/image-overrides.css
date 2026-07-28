@@ -1,1 +1,46 @@
-.brand-image img,.hero-logo,.devices-image,.mentor-brand-visual>img,.light-screen .platform-shot>img{opacity:0!important}.brand-image,.hero-logo,.devices-image,.mentor-brand-visual>img,.light-screen .platform-shot{background-position:center;background-repeat:no-repeat;background-size:contain}.brand-image{background-image:url('/imagens/logo.svg');min-width:180px;min-height:54px}.hero-logo{background-image:url('/imagens/logo.svg');display:block}.devices-image{background-image:url('/imagens/dispositivos.svg')}.mentor-brand-visual>img{background-image:url('/imagens/emblema.svg');display:block}.light-screen .platform-shot{background-image:url('/imagens/login.svg');background-size:cover}.light-screen .platform-shot>img{display:block}
+.brand-image img,
+.hero-logo,
+.devices-image,
+.mentor-brand-visual > img,
+.light-screen .platform-shot > img {
+  opacity: 0 !important;
+}
+
+.brand-image,
+.hero-logo,
+.devices-image,
+.mentor-brand-visual > img,
+.light-screen .platform-shot {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.brand-image {
+  background-image: url('/imagens/logo.jpg');
+  min-width: 180px;
+  min-height: 54px;
+}
+
+.hero-logo {
+  background-image: url('/imagens/logo.jpg');
+  display: block;
+}
+
+.devices-image {
+  background-image: url('/imagens/dispositivos.jpg');
+}
+
+.mentor-brand-visual > img {
+  background-image: url('/imagens/emblema.jpg');
+  display: block;
+}
+
+.light-screen .platform-shot {
+  background-image: url('/imagens/login.jpg');
+  background-size: cover;
+}
+
+.light-screen .platform-shot > img {
+  display: block;
+}
