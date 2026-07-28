@@ -1,0 +1,25 @@
+.scroll-motion-item{
+  --scroll-x:0px;
+  --scroll-opacity:1;
+  --scroll-blur:0px;
+  transform:translate3d(var(--scroll-x),0,0);
+  opacity:var(--scroll-opacity);
+  filter:blur(var(--scroll-blur));
+  will-change:transform,opacity,filter;
+  transition:transform .06s linear,opacity .08s linear,filter .08s linear;
+}
+
+@media(max-width:700px){
+  .scroll-motion-item{
+    transition:transform .04s linear,opacity .06s linear,filter .06s linear;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .scroll-motion-item{
+    transform:none!important;
+    opacity:1!important;
+    filter:none!important;
+    transition:none!important;
+  }
+}
