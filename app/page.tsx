@@ -3,98 +3,151 @@
 import { useEffect, useState } from "react";
 
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5586921405076";
+const whatsappLink = (message: string) => `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-function whatsappLink(message: string) {
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-}
-
-const plans = [
-  { name: "Essencial", price: "R$ 39,90", access: "2 meses", label: "Para começar", features: ["Banco de questões", "Filtros por concurso", "Comentários", "Desempenho"], message: "Olá! Tenho interesse no Plano Essencial da LC Concursos Policiais, no valor de R$ 39,90." },
-  { name: "Estratégico", price: "R$ 69,90", access: "2 meses", label: "Mais vendido", popular: true, features: ["Tudo do Essencial", "Caderno de erros", "Revisões automáticas", "Pontos fracos"], message: "Olá! Tenho interesse no Plano Estratégico da LC Concursos Policiais, no valor de R$ 69,90." },
-  { name: "Completo", price: "R$ 99,90", access: "3 meses", label: "Melhor custo-benefício", featured: true, features: ["Tudo do Estratégico", "Cronograma personalizado", "Plano de estudo", "Reorganização automática"], message: "Olá! Tenho interesse no Plano Completo da LC Concursos Policiais, no valor de R$ 99,90 e com 3 meses de acesso." },
+const platformPlans = [
+  {
+    name: "Plano Essencial",
+    price: "R$ 39,90",
+    access: "2 meses de acesso",
+    tone: "green",
+    intro: "Ideal para quem quer treinar através de questões.",
+    features: ["Banco de questões", "Comentários", "Estatísticas", "Filtros por disciplina"],
+  },
+  {
+    name: "Plano Estratégico",
+    price: "R$ 69,90",
+    access: "2 meses de acesso",
+    tone: "blue",
+    intro: "Tudo do Plano Essencial, com revisão inteligente.",
+    features: ["Caderno de erros automático", "Revisões automáticas", "Histórico de revisões"],
+  },
+  {
+    name: "Plano Completo",
+    price: "R$ 99,90",
+    access: "3 meses de acesso",
+    tone: "gold",
+    featured: true,
+    intro: "Tudo do Plano Estratégico, com organização total.",
+    features: ["Cronograma personalizado", "Plano de estudos", "Organização automática", "Ajuste do cronograma", "Controle da evolução"],
+  },
 ];
 
-const generalMessage = "Olá! Conheci a LC Concursos Policiais pela página e gostaria de saber qual plano é mais indicado para mim.";
+const premiumPlans = [
+  ["🥉 3 meses", "R$ 200,00"],
+  ["🥈 4 meses", "R$ 300,00"],
+  ["🥇 6 meses", "R$ 400,00", "Melhor custo-benefício"],
+  ["🏆 1 ano", "R$ 600,00", "Melhor investimento"],
+];
 
-function DemoFrame({ type }: { type: "questions" | "errors" | "schedule" | "analytics" | "mentor" }) {
-  if (type === "questions") return <div className="screen-card questions-ui"><div className="screen-bar"><b>Banco de questões</b><span>1.248 disponíveis</span></div><div className="filter-row"><i>Concurso</i><i>Disciplina</i><i>Assunto</i></div><div className="question-box"><small>QUESTÃO 124</small><h4>Sobre os princípios aplicáveis à Administração Pública, assinale a alternativa correta.</h4><p>A) Legalidade, impessoalidade, moralidade, publicidade e eficiência.</p><p>B) Apenas legalidade e publicidade.</p><button>RESPONDER QUESTÃO</button></div></div>;
-  if (type === "errors") return <div className="screen-card errors-ui"><div className="screen-bar"><b>Caderno de erros</b><span>Revisão automática</span></div><div className="error-stats"><div><strong>32</strong><small>Erros salvos</small></div><div><strong>18</strong><small>Revisados</small></div><div><strong>78%</strong><small>Evolução</small></div></div><div className="review-list"><p><span>Direito Penal</span><b>Revisar hoje</b></p><p><span>Constitucional</span><b>Em 2 dias</b></p><p><span>Legislação PM</span><b>Em 4 dias</b></p></div></div>;
-  if (type === "schedule") return <div className="screen-card schedule-ui"><div className="screen-bar"><b>Cronograma da semana</b><span>Atualizado agora</span></div><div className="calendar"><div><b>SEG</b><span>Português</span><span>40 questões</span></div><div><b>TER</b><span>Direito Penal</span><span>Lei seca</span></div><div className="today"><b>QUA</b><span>Legislação</span><span>Revisão</span></div><div><b>QUI</b><span>RLM</span><span>30 questões</span></div><div><b>SEX</b><span>Simulado</span><span>1h30</span></div></div><button className="readapt">READAPTAR CRONOGRAMA</button></div>;
-  if (type === "analytics") return <div className="screen-card analytics-ui"><div className="screen-bar"><b>Seu desempenho</b><span>Últimos 30 dias</span></div><div className="analytics-top"><div><small>Questões</small><strong>1.248</strong></div><div><small>Acertos</small><strong>82%</strong></div><div><small>Sequência</small><strong>12 dias</strong></div></div><div className="bars"><i style={{height:"42%"}}/><i style={{height:"55%"}}/><i style={{height:"48%"}}/><i style={{height:"68%"}}/><i style={{height:"73%"}}/><i style={{height:"88%"}}/><i style={{height:"82%"}}/></div></div>;
-  return <div className="screen-card mentor-ui"><div className="mentor-avatar">LC</div><div><small>ACOMPANHAMENTO SEMANAL</small><h4>Orientação para corrigir sua rota e manter a constância.</h4><p>Metas, ajustes do cronograma e direcionamento de acordo com seu desempenho.</p><div className="mentor-tags"><span>Metas semanais</span><span>Análise individual</span><span>Suporte humano</span></div></div></div>;
-}
-
-function VisualDemo({ type }: { type: "questions" | "errors" | "schedule" | "analytics" }) {
-  return <div className="visual-demo"><div className="demo-window"><div className="shot-browser"><i/><i/><i/><span>app.lcconcursos.com.br</span></div><DemoFrame type={type}/></div></div>;
-}
+const faq = [
+  ["Posso escolher qualquer concurso?", "Sim. Você escolhe entre os concursos disponíveis na plataforma."],
+  ["Preciso instalar algum programa?", "Não. Basta acessar pela internet no computador, tablet ou celular."],
+  ["O cronograma é personalizado?", "Sim. Ele é criado de acordo com o concurso escolhido, sua disponibilidade e a data da prova."],
+  ["Posso alterar meu plano depois?", "Sim. Você poderá fazer upgrade para um plano superior quando desejar."],
+  ["Como acontece a mentoria?", "Os encontros são realizados uma vez por semana, com orientação individualizada para acompanhar sua evolução."],
+];
 
 export default function Home() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const sections = Array.from(document.querySelectorAll<HTMLElement>(".snap-section"));
-    let lastScrollY = window.scrollY;
-
-    const updateScroll = () => {
-      const direction = window.scrollY >= lastScrollY ? "down" : "up";
-      document.documentElement.dataset.scrollDirection = direction;
-      lastScrollY = window.scrollY;
+    const updateProgress = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
     };
-
-    updateScroll();
-    window.addEventListener("scroll", updateScroll, { passive: true });
-
-    const observer = new IntersectionObserver((entries) => {
-      const direction = document.documentElement.dataset.scrollDirection || "down";
-      entries.forEach((entry) => {
-        const section = entry.target as HTMLElement;
-        section.classList.toggle("from-up", direction === "up");
-        section.classList.toggle("from-down", direction !== "up");
-        section.classList.toggle("is-visible", entry.isIntersecting);
-      });
-    }, { threshold: [0.18, 0.42, 0.68], rootMargin: "-8% 0px -8% 0px" });
-
-    sections.forEach((section) => {
-      section.classList.add("reveal-section", "from-down");
-      observer.observe(section);
-    });
-
-    return () => {
-      window.removeEventListener("scroll", updateScroll);
-      observer.disconnect();
-    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    return () => window.removeEventListener("scroll", updateProgress);
   }, []);
 
   return (
-    <main className="snap-page">
-      <div className="scroll-progress" style={{width: `${progress}%`}} />
-      <header className="topbar"><a className="brand" href="#inicio"><span className="brand-mark">LC</span><b>LC CONCURSOS <em>POLICIAIS</em></b></a><a className="top-cta" href={whatsappLink(generalMessage)} target="_blank" rel="noreferrer">QUERO CONHECER A PLATAFORMA</a></header>
-      <nav className="scroll-dots" aria-label="Navegação entre seções"><a href="#inicio"/><a href="#numeros"/><a href="#questoes"/><a href="#erros"/><a href="#cronograma"/><a href="#desempenho"/><a href="#mentoria"/><a href="#planos"/><a href="#faq"/></nav>
+    <main>
+      <div className="scroll-progress" style={{ width: `${progress}%` }} />
+      <header className="topbar">
+        <a className="brand" href="#inicio"><span>LC</span><b>LC CONCURSOS <em>POLICIAIS</em></b></a>
+        <a className="top-cta" href="#planos">ESCOLHER MEU PLANO</a>
+      </header>
 
-      <section className="snap-section hero-screen" id="inicio"><div className="orb orb-one"/><div className="section-inner hero-layout"><div className="copy"><span className="kicker">PREPARAÇÃO PARA CONCURSOS POLICIAIS</span><h1>Mais que uma plataforma de questões.</h1><p>Um sistema completo com cronograma personalizado, banco de questões, caderno de erros e acompanhamento para você estudar com direção e conquistar sua vaga.</p><div className="actions"><a className="primary" href={whatsappLink(generalMessage)} target="_blank" rel="noreferrer">COMEÇAR MINHA PREPARAÇÃO</a><a className="secondary" href="#questoes">VER COMO FUNCIONA ↓</a></div><div className="trust-inline"><span>✓ Acesso imediato</span><span>✓ 100% online</span><span>✓ Suporte humano</span></div></div><div className="hero-visual"><div className="hero-demo"><DemoFrame type="analytics"/></div></div></div></section>
+      <section className="hero" id="inicio">
+        <div className="hero-glow" />
+        <div className="container hero-grid">
+          <div>
+            <span className="eyebrow">PREPARAÇÃO PARA CONCURSOS POLICIAIS</span>
+            <h1>PARE DE ESTUDAR SEM DIREÇÃO.</h1>
+            <p className="hero-subtitle">A plataforma que monta seu plano de estudos, organiza sua rotina e acompanha sua evolução até a aprovação.</p>
+            <p className="hero-line">Escolha seu concurso. A plataforma faz o planejamento. Você só precisa estudar.</p>
+            <div className="check-grid">
+              {['Cronograma personalizado','Banco de questões específico','Caderno de erros inteligente','Revisões automáticas','Estatísticas de desempenho','Mentoria semanal no Premium'].map(item => <span key={item}>✓ {item}</span>)}
+            </div>
+            <div className="hero-actions">
+              <a className="primary" href="#planos">🚀 QUERO COMEÇAR AGORA</a>
+              <small>✅ Acesso imediato • Computador • Tablet • Celular</small>
+            </div>
+          </div>
+          <div className="dashboard-mockup">
+            <div className="mockup-top"><i/><i/><i/><span>app.lcconcursos.com.br</span></div>
+            <div className="mockup-body">
+              <div className="mini-card"><small>QUESTÕES RESPONDIDAS</small><strong>1.248</strong><span>+18% esta semana</span></div>
+              <div className="mini-card"><small>PERCENTUAL DE ACERTOS</small><strong>82%</strong><span>Seu desempenho está subindo</span></div>
+              <div className="chart"><b>EVOLUÇÃO SEMANAL</b><div>{[42,55,48,68,73,88,82].map((h,i)=><i key={i} style={{height:`${h}%`}} />)}</div></div>
+              <div className="schedule"><b>PRÓXIMAS TAREFAS</b><p><span>Português</span><strong>40 questões</strong></p><p><span>Direito Penal</span><strong>Revisão</strong></p><p><span>Legislação</span><strong>Lei seca</strong></p></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <section className="stats-section" id="numeros"><div className="section-inner stats-grid"><div><strong>+4.000</strong><span>questões</span></div><div><strong>100%</strong><span>online</span></div><div><strong>3</strong><span>planos de acesso</span></div><div><strong>1</strong><span>sistema completo</span></div></div></section>
+      <section className="positioning"><div className="container">🎯 <b>Mais de uma plataforma de questões.</b> Um sistema completo de preparação para concursos policiais.</div></section>
 
-      <section className="snap-section light-screen" id="questoes"><div className="section-number">01</div><div className="section-inner feature-layout"><div className="copy dark"><span className="kicker blue">QUESTÕES DIRECIONADAS</span><h2>Pratique exatamente o que pode cair na sua prova.</h2><p>Escolha concurso, disciplina, assunto e banca. Resolva questões comentadas e acompanhe seu rendimento sem perder tempo procurando material.</p><ul><li>Filtros inteligentes</li><li>Questões por concurso</li><li>Comentários didáticos</li></ul></div><VisualDemo type="questions"/></div></section>
+      <section className="section pain">
+        <div className="container two-col">
+          <div><span className="eyebrow dark">O PROBLEMA</span><h2>VOCÊ ESTUDA, MAS TEM A SENSAÇÃO DE QUE NÃO ESTÁ EVOLUINDO?</h2><p>A maioria dos candidatos reprova porque estuda sem método. A LC Concursos foi criada para mudar isso.</p></div>
+          <div className="pain-list">{['Não sabe por onde começar.','Não consegue organizar um cronograma.','Esquece rapidamente o conteúdo estudado.','Erra as mesmas questões várias vezes.','Não sabe quais disciplinas precisam de mais atenção.'].map(item=><p key={item}>✕ {item}</p>)}</div>
+        </div>
+      </section>
 
-      <section className="snap-section navy-screen" id="erros"><div className="section-number">02</div><div className="section-inner feature-layout reverse"><VisualDemo type="errors"/><div className="copy"><span className="kicker">CADERNO DE ERROS</span><h2>Seus erros viram um plano de revisão.</h2><p>A plataforma salva automaticamente as questões erradas e organiza as próximas revisões para você não repetir os mesmos erros na prova.</p><ul><li>Registro automático</li><li>Revisões programadas</li><li>Evolução por disciplina</li></ul></div></div></section>
+      <section className="section features">
+        <div className="container"><div className="section-heading"><span className="eyebrow">TUDO EM UM ÚNICO LUGAR</span><h2>UMA PLATAFORMA DESENVOLVIDA PARA APROVAÇÃO EM CONCURSOS POLICIAIS</h2></div>
+          <div className="feature-grid">
+            {[
+              ['📅','Cronograma Inteligente','Plano conforme concurso, edital, data da prova e tempo disponível. Se você perder um dia, o cronograma pode ser reorganizado.'],
+              ['📚','Banco de Questões Direcionado','Questões por disciplina, assunto, banca e nível de dificuldade, com comentários para facilitar a aprendizagem.'],
+              ['📒','Caderno de Erros Inteligente','Cada questão errada é salva automaticamente para você revisar exatamente aquilo em que possui dificuldade.'],
+              ['🔄','Revisões Automáticas','A plataforma agenda revisões dos conteúdos estudados para reduzir o esquecimento e aumentar a retenção.'],
+              ['📈','Painel de Desempenho','Acompanhe acertos, evolução por disciplina, questões resolvidas, evolução semanal e assuntos que precisam de reforço.'],
+              ['👨🏻‍🏫','Mentoria Semanal','No Plano Premium, receba orientação individual para ajustar cronograma, estratégia e constância até a prova.']
+            ].map(([icon,title,text])=><article key={title}><span>{icon}</span><h3>{title}</h3><p>{text}</p></article>)}
+          </div>
+        </div>
+      </section>
 
-      <section className="snap-section soft-screen" id="cronograma"><div className="section-number">03</div><div className="section-inner feature-layout"><div className="copy dark"><span className="kicker blue">CRONOGRAMA PERSONALIZADO</span><h2>Saiba o que estudar todos os dias.</h2><p>Seu tempo disponível vira um plano claro, com metas e reorganização automática quando a rotina mudar.</p><ul><li>Plano por data da prova</li><li>Metas diárias</li><li>Readaptação automática</li></ul></div><VisualDemo type="schedule"/></div></section>
+      <section className="section plans-section" id="planos">
+        <div className="container"><div className="section-heading"><span className="eyebrow">ESCOLHA O PLANO IDEAL</span><h2>COMECE NO NÍVEL DE DIREÇÃO QUE VOCÊ PRECISA.</h2><p>Todos os valores são de pagamento único.</p></div>
+          <div className="plans-grid">
+            {platformPlans.map(plan=><article className={`plan ${plan.featured?'featured':''} ${plan.tone}`} key={plan.name}>{plan.featured&&<span className="badge">🔥 MAIS ESCOLHIDO</span>}<h3>{plan.name}</h3><strong>{plan.price}</strong><small>{plan.access}</small><p>{plan.intro}</p><ul>{plan.features.map(f=><li key={f}>✓ {f}</li>)}</ul><a href={whatsappLink(`Olá! Tenho interesse no ${plan.name}, no valor de ${plan.price}.`)} target="_blank" rel="noreferrer">QUERO ESTE PLANO</a></article>)}
+          </div>
 
-      <section className="snap-section blue-screen" id="desempenho"><div className="section-number">04</div><div className="section-inner feature-layout reverse"><VisualDemo type="analytics"/><div className="copy"><span className="kicker">EVOLUÇÃO INDIVIDUAL</span><h2>Veja onde você está evoluindo e onde precisa reagir.</h2><p>Gráficos mostram questões, acertos, atividades, pontos fracos e aproveitamento por disciplina.</p><ul><li>Acertos e erros</li><li>Rendimento por disciplina</li><li>Progresso semanal</li></ul></div></div></section>
+          <article className="premium-plan">
+            <div><span className="eyebrow">👑 PLANO MENTORIA PREMIUM</span><h2>A PREPARAÇÃO MAIS COMPLETA DA LC CONCURSOS.</h2><p>Todos os recursos da plataforma, com mentoria individual, encontro semanal, ajustes no cronograma, análise personalizada e direcionamento até a prova.</p><ul><li>✓ Mentoria individual</li><li>✓ Encontro semanal</li><li>✓ Ajustes no cronograma</li><li>✓ Análise personalizada</li><li>✓ Direcionamento até a prova</li></ul></div>
+            <div className="premium-options">{premiumPlans.map(([period,price,label])=><div key={period}><span>{period}</span><strong>{price}</strong>{label&&<small>{label}</small>}</div>)}<a href={whatsappLink('Olá! Tenho interesse no Plano Mentoria Premium da LC Concursos Policiais.')} target="_blank" rel="noreferrer">QUERO A MENTORIA PREMIUM</a></div>
+          </article>
+        </div>
+      </section>
 
-      <section className="snap-section dark-screen" id="mentoria"><div className="section-number">05</div><div className="section-inner feature-layout"><div className="copy"><span className="kicker">ACOMPANHAMENTO HUMANO</span><h2>Tecnologia para organizar. Orientação para não perder o rumo.</h2><p>Tenha metas, análise individual e contato com o mentor para ajustar sua preparação.</p><a className="primary gold" href={whatsappLink("Olá! Tenho interesse na Mentoria Premium da LC Concursos Policiais.")} target="_blank" rel="noreferrer">CONHECER A MENTORIA</a></div><div className="mentor-brand-visual"><div className="emblem">LC</div><DemoFrame type="mentor"/></div></div></section>
+      <section className="section how"><div className="container"><div className="section-heading"><span className="eyebrow dark">PASSO A PASSO</span><h2>COMO FUNCIONA?</h2></div><div className="steps">{[['1','Escolha seu concurso','Selecione um dos concursos disponíveis.'],['2','Escolha seu plano','Defina o nível de acompanhamento desejado.'],['3','Receba acesso imediato','Entre na plataforma e comece a estudar.'],['4','Evolua todos os dias','Siga seu cronograma e acompanhe o desempenho.']].map(([n,t,d])=><article key={n}><b>{n}</b><h3>{t}</h3><p>{d}</p></article>)}</div></div></section>
 
-      <section className="snap-section plans-screen" id="planos"><div className="section-inner plans-inner"><div className="plans-heading"><span className="kicker blue">ESCOLHA SEU PLANO</span><h2>Comece agora.</h2><p>Escolha o nível de direção que você precisa para avançar.</p></div><div className="plans-grid">{plans.map(plan=><article className={`plan ${plan.featured?"featured":""}`} key={plan.name}>{(plan.popular||plan.featured)&&<span className="badge">{plan.label}</span>}<small className="plan-label">{plan.label}</small><h3>{plan.name}</h3><strong>{plan.price}</strong><small>{plan.access} de acesso</small><ul>{plan.features.map(item=><li key={item}>✓ {item}</li>)}</ul><a href={whatsappLink(plan.message)} target="_blank" rel="noreferrer">QUERO ESTE PLANO</a></article>)}</div><div className="guarantees"><span>✓ Acesso imediato</span><span>✓ Atualizações no período contratado</span><span>✓ Suporte da equipe</span><span>✓ Pagamento seguro</span></div><p className="plans-note">Pagamento único. Atendimento e contratação diretamente pelo WhatsApp.</p></div></section>
+      <section className="section reasons"><div className="container two-col"><div><span className="eyebrow">POR QUE A LC CONCURSOS?</span><h2>ORGANIZAÇÃO COMPLETA PARA QUEM QUER ESTUDAR COM MÉTODO.</h2></div><div className="reason-list">{['Plataforma exclusiva para concursos policiais.','Cronograma inteligente.','Banco de questões direcionado.','Revisões automáticas.','Caderno de erros.','Gráficos de evolução.','Mentoria especializada.'].map(item=><span key={item}>✓ {item}</span>)}</div></div></section>
 
-      <section className="faq-section" id="faq"><div className="section-inner faq-inner"><div><span className="kicker">PERGUNTAS FREQUENTES</span><h2>Tire suas dúvidas.</h2></div><div className="faq-list"><details><summary>O acesso é imediato?</summary><p>Sim. Após a confirmação da contratação, você recebe as orientações de acesso à plataforma.</p></details><details><summary>Posso acessar pelo celular?</summary><p>Sim. A plataforma funciona em celular, tablet, notebook e computador.</p></details><details><summary>O pagamento é mensal?</summary><p>Não. Os valores exibidos correspondem ao período completo de acesso de cada plano.</p></details><details><summary>Qual plano é mais indicado para mim?</summary><p>O plano Essencial é focado em questões; o Estratégico acrescenta caderno de erros e revisões; o Completo inclui também cronograma personalizado.</p></details></div></div></section>
+      <section className="section audience"><div className="container"><div className="section-heading"><span className="eyebrow dark">PARA QUEM É</span><h2>ESSA PLATAFORMA É PARA VOCÊ QUE...</h2></div><div className="audience-grid">{['Vai iniciar os estudos.','Já estuda, mas está desorganizado.','Trabalha e possui pouco tempo.','Quer estudar sozinho com método.','Deseja acompanhamento especializado.'].map(item=><div key={item}>✓ {item}</div>)}</div></div></section>
 
-      <footer><div className="section-inner footer-grid"><div><div className="brand"><span className="brand-mark">LC</span><b>LC CONCURSOS <em>POLICIAIS</em></b></div><p>Preparação inteligente para concursos policiais.</p></div><div><b>CONTATO</b><a href={whatsappLink(generalMessage)} target="_blank" rel="noreferrer">WhatsApp</a><a href="https://instagram.com/lcconcursos01" target="_blank" rel="noreferrer">Instagram</a></div><div><b>INFORMAÇÕES</b><span>Termos de uso</span><span>Política de privacidade</span></div></div><div className="copyright">© 2026 LC Concursos Policiais. Todos os direitos reservados.</div></footer>
+      <section className="section faq"><div className="container faq-grid"><div><span className="eyebrow">PERGUNTAS FREQUENTES</span><h2>TIRE SUAS DÚVIDAS.</h2></div><div>{faq.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
 
-      <a className="back-top" href="#inicio" aria-label="Voltar ao topo">↑</a>
-      <a className="whatsapp-float" href={whatsappLink(generalMessage)} target="_blank" rel="noreferrer" aria-label="Falar pelo WhatsApp">WHATSAPP</a>
+      <section className="final-cta"><div className="container"><span className="eyebrow">SUA APROVAÇÃO COMEÇA COM UMA DECISÃO.</span><h2>PARE DE ESTUDAR SEM DIREÇÃO.</h2><p>Tenha um plano organizado, resolva questões específicas do seu concurso, acompanhe sua evolução e prepare-se com estratégia.</p><a className="primary" href="#planos">🚀 ESCOLHA SEU PLANO E COMECE HOJE!</a></div></section>
+
+      <footer><div className="container footer-grid"><div className="brand"><span>LC</span><b>LC CONCURSOS <em>POLICIAIS</em></b></div><div><b>CONTATO</b><a href={whatsappLink('Olá! Gostaria de saber mais sobre a LC Concursos Policiais.')} target="_blank" rel="noreferrer">WhatsApp</a><a href="https://instagram.com/lcconcursos01" target="_blank" rel="noreferrer">Instagram</a></div><div><b>INFORMAÇÕES</b><span>Termos de uso</span><span>Política de privacidade</span></div></div><p>© 2026 LC Concursos Policiais. Todos os direitos reservados.</p></footer>
+
+      <a className="whatsapp-float" href={whatsappLink('Olá! Gostaria de conhecer os planos da LC Concursos Policiais.')} target="_blank" rel="noreferrer">WHATSAPP</a>
+      <a className="back-top" href="#inicio">↑</a>
     </main>
   );
 }
