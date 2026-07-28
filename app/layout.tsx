@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
+import "./image-overrides.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-title", display: "swap" });
