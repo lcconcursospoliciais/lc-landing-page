@@ -1,0 +1,36 @@
+.brand > span{
+  width:52px!important;
+  height:52px!important;
+  min-width:52px;
+  padding:0!important;
+  border-radius:15px!important;
+  background:url('/logo-lc.svg') center/cover no-repeat!important;
+  border:1px solid rgba(212,164,55,.55)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.28),0 0 0 2px rgba(212,164,55,.08)!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  overflow:hidden;
+}
+
+footer .brand > span{
+  width:60px!important;
+  height:60px!important;
+  min-width:60px;
+  border-radius:17px!important;
+}
+
+@media(max-width:700px){
+  .topbar .brand > span{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px;
+    border-radius:13px!important;
+  }
+
+  footer .brand > span{
+    width:52px!important;
+    height:52px!important;
+    min-width:52px;
+  }
+}
