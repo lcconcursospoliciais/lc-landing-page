@@ -23,7 +23,11 @@ const selector = [
 export default function ScrollMotion() {
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduceMotion.matches) return;
+    const mobileScreen = window.matchMedia("(max-width: 700px)");
+
+    // No celular, o movimento ligado ao scroll é desativado para evitar
+    // pequenos recuos causados pela alteração da altura útil do navegador.
+    if (reduceMotion.matches || mobileScreen.matches) return;
 
     const elements = Array.from(document.querySelectorAll<HTMLElement>(selector));
     elements.forEach((element, index) => {
