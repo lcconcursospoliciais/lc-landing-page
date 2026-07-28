@@ -5,6 +5,7 @@ import "./image-overrides.css";
 import "./improvements.css";
 import "./real-platform.css";
 import "./scroll-motion.css";
+import "./brand-logo.css";
 import ScrollMotion from "./ScrollMotion";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
