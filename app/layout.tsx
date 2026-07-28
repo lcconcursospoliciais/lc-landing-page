@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
+// Atualização de publicação após reconexão com a Vercel.
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
