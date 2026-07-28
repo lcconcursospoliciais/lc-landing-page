@@ -44,7 +44,7 @@ export default function Home() {
       <div className="real-hero-showcase"><BrowserShot src={screens.questoes} alt="Tela real do banco de questões da LC Concursos" className="hero-main-shot"/><BrowserShot src={screens.cronograma} alt="Tela real do cronograma personalizado" className="hero-float hero-cronograma"/><BrowserShot src={screens.desempenho} alt="Tela real do painel de desempenho" className="hero-float hero-desempenho"/><span className="real-badge">PLATAFORMA REAL EM AÇÃO</span></div>
     </div></section>
 
-    <section className="positioning"><div className="container">🎯 <b>Mais de uma plataforma de questões.</b> Um sistema completo de preparação para concursos policiais.</div></section>
+    <section className="positioning"><div className="container">🎯 <b>Um sistema completo de preparação para concursos policiais.</b></div></section>
 
     <section className="section pain"><div className="container two-col"><div><span className="eyebrow dark">O PROBLEMA</span><h2>VOCÊ ESTUDA, MAS TEM A SENSAÇÃO DE QUE NÃO ESTÁ EVOLUINDO?</h2><p>A maioria dos candidatos reprova porque estuda sem método. A LC Concursos foi criada para mudar isso.</p></div><div className="pain-list">{["Não sabe por onde começar.","Não consegue organizar um cronograma.","Esquece rapidamente o conteúdo estudado.","Erra as mesmas questões várias vezes.","Não sabe quais disciplinas precisam de mais atenção."].map(item=><p key={item}>✕ {item}</p>)}</div></div></section>
 
