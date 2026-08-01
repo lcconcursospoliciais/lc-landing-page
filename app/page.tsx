@@ -7,8 +7,8 @@ const whatsappLink = (message: string) => `https://wa.me/${whatsappNumber}?text=
 
 const platformPlans = [
   { name: "Plano Essencial", price: "R$ 39,90", access: "2 meses de acesso", tone: "green", intro: "Ideal para quem quer treinar através de questões.", features: ["Mais de 5.000 questões inéditas", "Questões das bancas dos próximos concursos", "Comentários", "Estatísticas", "Filtros por disciplina"] },
-  { name: "Plano Estratégico", price: "R$ 69,90", access: "2 meses de acesso", tone: "blue", intro: "Tudo do Plano Essencial, com revisão inteligente.", features: ["Caderno de erros automático", "Revisões automáticas", "Histórico de revisões"] },
-  { name: "Plano Completo", price: "R$ 99,90", access: "3 meses de acesso", tone: "gold", featured: true, intro: "Tudo do Plano Estratégico, com organização total.", features: ["Cronograma personalizado", "Plano de estudos", "Organização automática", "Ajuste do cronograma", "Controle da evolução"] },
+  { name: "Plano Estratégico", price: "R$ 59,90", access: "2 meses de acesso", tone: "blue", intro: "Tudo do Plano Essencial, com revisão inteligente.", features: ["Caderno de erros automático", "Revisões automáticas", "Histórico de revisões"] },
+  { name: "Plano Completo", price: "R$ 79,90 ou R$ 99,90", access: "2 meses de acesso ou 3 meses de acesso", tone: "gold", featured: true, intro: "Tudo do Plano Estratégico, com organização total.", features: ["Cronograma personalizado", "Plano de estudos", "Organização automática", "Ajuste do cronograma", "Controle da evolução"] },
 ];
 
 const premiumPlans = [["🥉 3 meses", "R$ 275,00"], ["🥈 4 meses", "R$ 325,00"], ["🥇 6 meses", "R$ 400,00", "Melhor custo-benefício"], ["🏆 1 ano", "R$ 600,00", "Melhor investimento"]];
