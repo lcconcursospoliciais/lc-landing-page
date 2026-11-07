@@ -11,7 +11,7 @@ const platformPlans = [
   { name: "Plano Completo", tone: "gold", featured: true, intro: "Tudo do Plano Estratégico, com organização total.", features: ["Cronograma personalizado", "Plano de estudos", "Organização automática", "Ajuste do cronograma", "Controle da evolução"], options: [{ price: "R$ 79,90", access: "2 meses de acesso" }, { price: "R$ 99,90", access: "3 meses de acesso" }] },
 ];
 
-const premiumPlans = [["🥉 3 meses", "R$ 275,00"], ["🥈 4 meses", "R$ 325,00"], ["🥇 6 meses", "R$ 400,00", "Melhor custo-benefício"], ["🏆 1 ano", "R$ 600,00", "Melhor investimento"]];
+const premiumPlans = [["🥉 3 meses", "R$ 275,00"], ["🥈 4 meses", "R$ 350,00"], ["🥇 6 meses", "R$ 400,00", "Melhor custo-benefício"], ["🏆 1 ano", "R$ 600,00", "Melhor investimento"]];
 const faq = [["Posso escolher qualquer concurso?", "Sim. Você escolhe entre os concursos disponíveis na plataforma."], ["Preciso instalar algum programa?", "Não. Basta acessar pela internet no computador, tablet ou celular."], ["O cronograma é personalizado?", "Sim. Ele é criado de acordo com o concurso escolhido, sua disponibilidade e a data da prova."], ["Posso alterar meu plano depois?", "Sim. Você poderá fazer upgrade para um plano superior quando desejar."], ["Como acontece a mentoria?", "Os encontros são realizados uma vez por semana, com orientação individualizada para acompanhar sua evolução."]];
 
 const screens = {
